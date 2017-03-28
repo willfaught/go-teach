@@ -1,0 +1,385 @@
+Go crash course
+Hold on to your butts
+27 Mar 2017
+Tags: go, tutorial
+
+Will Faught
+Senior Software Engineer, BigCommerce
+will.faught@bigcommerce.com
+
+* Comments
+
+    // Line-ending comment
+
+    /* Intra/inter-line comment */
+
+    package foo // import "foo.bar"
+
+    // +build tag
+
+    //go:generate command
+
+    // Foo does...
+
+* Literals
+
+Untyped:
+
+    123 | 123.456 | 123e456 | 123i | 'r' | "s" | false | true
+
+Simple expressions evaluated by the compiler:
+
+    1 + 2 | 3 / 2 | 1 << 2 | 1 < 2 | "a" + "b"
+
+256 bits for numbers:
+
+    const huge = 1 << 100
+    const word int64 = huge // compiler error: int64 too small
+    const word int64 = huge >> 98 // works
+
+* Built-in named types
+
+* Booleans
+
+Type:
+
+    bool
+
+Literals:
+
+    false true
+
+Operations:
+
+    b1 && b2 | b1 || b2
+
+    new(bool)
+
+* Integers
+
+Types:
+
+    int | int8 | int16 | int32 | int64 // int is word impl
+
+    uint | uint8 | uint16 | uin32 | uint64 // uint is word impl
+
+    uintptr // word impl
+
+    byte // uint8 impl
+    
+    rune // int32 impl
+
+Literals:
+
+    7 | 07 | 0x7 | '7'
+
+Operations:
+
+    + | - | * | / | % | & | `|` | ^ | &^ | << | >>
+
+    += | -= | *= | /= | %=
+
+* Integers, continued
+
+    &= | |= | ^= | &^= | <<= | >>=
+
+    == | != | < | <= | > | >=
+
+    new(int) | new(uint) | new(uintptr) | new(byte) | new(rune)
+
+* Floats
+
+Type:
+
+    float32 | float64
+
+ Literals:
+
+   7.7 | 07.7 | 7e-7
+
+Operations:
+
+    + | - | * | /
+
+    += | -= | *= | /=
+
+    == | != | < | <= | > | >=
+
+    new(float32) | new(float64)
+
+* Complex
+
+Type:
+
+    complex64 | complex128
+
+Literals:
+
+    7i | 7.7i | 7e7i
+
+Operations:
+
+    +  | -  | *  | /
+
+    += | -= | *= | /=
+
+    == | != | <  | <= | > | >=
+
+    complex(n1, n2) | new(complex64) | new(complex128)
+
+* Strings
+
+Type:
+
+    string
+
+Literals:
+
+    "" | "s"
+
+Operations:
+
+    +
+
+    +=
+
+    == | != | < | <= | > | >=
+
+    s[0] | s[0:1] | s[0:] | s[:1] | s[:]
+
+    len(s) | new(string) | string([]byte(b))
+
+* Strings, continued
+
+Iteration:
+
+    for i := range s {...}
+
+    for i, r := range s {...}
+
+* Built-in unnamed types
+
+* Arrays
+
+Type:
+
+    [N]T
+
+Literals:
+
+    [N]T{} | [N]T{e} | [N]T{e1, e2} | [N]T{n1: e1, n2: e2} | [...]T{e1, e2}
+
+Operations:
+
+    == | !=
+
+    a[0] | a[0:1] | a[0:] | a[:1] | a[:]
+
+    cap(a) | len(a) | new(A)
+
+Iteration:
+
+    for i := range [N]T{} {...}
+
+    for i, e := range [N]T{} {...}
+
+* Slices
+
+Type:
+
+    []T
+
+Literals:
+
+    nil | []T{} | []T{e} | []T{e1, e2} | []T{n1: e1, n2: e2, n9: e9}
+
+Operations:
+
+    s == nil | s != nil
+
+    s[n] | s[n1:n2] | s[n:] | s[:n] | s[:] | &s
+
+    append(s, e) | append(s, e1, e2) | append(s1,...) | cap(s) | copy(dst, src) | len(s) | make(S)
+
+    make(S, c) | make(S, l, c) | new(S)
+
+* Slices, continued
+
+Iteration:
+
+    for i := range s {...}
+
+    for i, e := range s {...}
+
+* Channels
+
+Types:
+
+    chan T | <-chan T | chan<- T
+
+Literals:
+
+    nil
+
+Operations:
+
+    == | !=
+
+    <-c | c <- e
+
+    cap(c) | close(c) | len(c) | make(C) | make(C, n) | new(C)
+
+Iteration:
+
+    for e := range c {...}
+
+* Maps
+
+Type:
+
+    map[T1]T2
+
+Literals:
+
+    nil | map[T1]T2{} | map[T1]T2{i: e} | map[T1]T2{i1: e1, i2: e2}
+
+Operations:
+
+    m == nil | m != nil
+
+    m[i] | &m
+    
+    len(m) | make(M) | make(M, n) | new(M)
+
+Iteration:
+
+    for i := range m {...} // i is the key
+
+    for i, e := range m {...} // i is the key
+
+* Pointers
+
+Type:
+
+    *T
+
+Operations:
+
+    &v | *x
+
+* Structs
+
+Type:
+
+    struct{} | struct{T} | struct{f T} | struct{f1 T1; f2 T2} | struct{f1 T1; f2, f3 T2}
+    
+    struct{f1 T1; f2, f3 T2; T3}
+
+    struct{f T "any string literal"} // struct tag
+
+    struct{f T "any string literal"; f2 T "any string literal"} // struct tags
+
+Literals:
+
+    struct{}{} | &struct{}{}
+    
+    struct{f1 T1; f2, f3 T2; T3}{} | &struct{f1 T1; f2, f3 T2; T3}{}
+    
+    struct{f1 T1; f2, f3 T2; T3}{T3: t3, f3: f3, f2: f2, f1: f1}
+
+    &struct{f1 T1; f2, f3 T2; T3}{T3: t3, f3: f3, f2: f2, f1: f1}
+
+* Structs, continued
+
+Operations:
+
+    == | !=
+
+    s.f | s.f = x | &s.f
+
+    new(S)
+
+* Functions
+
+Types:
+
+    func() | func(T) | func() T | func(T) T | func(T1, T2) (T1, T2) | func(...T)
+
+Literals:
+
+    func() {...} | func(T) {...} | func() T {...} | func(T) T {...} | func(T1, T2) (T1, T2) {...}
+    
+    func(...T) {...}
+
+Operations:
+
+    == nil | != nil
+    
+    f() | f(s...) | &v
+    
+    new(F)
+
+* Package declarations
+
+* Constants
+
+* Variables
+
+* Functions
+
+* New named types
+
+Declare a new named type in terms of an unnamed type or another named type:
+
+    type newtype oldtype
+
+Named types are convertible to equivalent types
+
+    type T1 int; type T2 int
+
+    var t1 T1 = 7
+    var t2 T2 = 8
+
+    t1 = T1(t2) // type conversion of expression t2 to type T1
+    
+    var n = int(t2)
+
+* New named types, continued
+
+New named types have the operations of their old counterparts:
+
+    type A [2]int; type F func(); type M map[int]int; type N int; type S []int
+
+    A([2]int{7, 8})[:1]
+
+    F(func(){})()
+
+    M(map[int]int{7: 8})[7]
+
+    N(7) + N(8)
+
+    S("s") + S("t")
+
+* Methods
+
+    type T struct{f T2}
+
+    func (T) m1() {}
+
+    func (t T) m2(T) T { return t }
+
+    func (t *T) m3(T, T) (T, T) { return t, t }
+
+    func (*T) f() {} // compiler error: f is already a field
+
+    var x T1 = ...
+    var y *T2 = ...
+
+    x.m1(); (x.m1)()
+    y.m1(); (y.m1)()
+
+type T int
+
+func (t *T) negate() {...}
+
+* Interfaces
