@@ -1,5 +1,4 @@
 Go crash course
-Hold on to your butts
 27 Mar 2017
 Tags: go, tutorial
 
@@ -9,9 +8,13 @@ will.faught@bigcommerce.com
 
 * Comments
 
+Two kinds:
+
     // Line-ending comment
 
-    /* Intra/inter-line comment */
+    /* Inter/intra-line comment */
+
+Some comments are special annotations:
 
     package foo // import "foo.bar"
 
@@ -19,23 +22,45 @@ will.faught@bigcommerce.com
 
     //go:generate command
 
-    // Foo does...
+    // Foo returns the...
 
 * Literals
 
 Untyped:
 
-    123 | 123.456 | 123e456 | 123i | 'r' | "s" | false | true
+    123 | 1.2e3 | 123i | 'r' | "s" | false | true | nil
 
-Simple expressions evaluated by the compiler:
+Simple operations are evaluated by the compiler:
 
     1 + 2 | 3 / 2 | 1 << 2 | 1 < 2 | "a" + "b"
 
-256 bits for numbers:
+Number literals implicitly type convert:
 
-    const huge = 1 << 100
-    const word int64 = huge // compiler error: int64 too small
-    const word int64 = huge >> 98 // works
+    var _ complex64 = 123i
+    var _ complex128 = 123i
+    var _ float32 = 1.2e3
+    var _ float64 = 1.2e3
+    var _ int8 = 123
+    var _ int16 = 123
+    var _ int32 = 'r'
+    var _ int64 = 'r'
+
+* Literals, continued
+
+Numbers have 256 bits of precision:
+
+    var _ int64 = 1 << 100 // compiler error
+    var _ int64 = 1 << 100 >> 100 // no compiler error
+
+Default types:
+
+    var _ = true // bool
+    var _ = 7.7i // complex128
+    var _ = 7.7 // float64
+    var _ = 7 // int
+    var _ = nil // compiler error, must be typed
+    var _ = 'r' // rune
+    var _ = "s" // string
 
 * Built-in named types
 
@@ -47,11 +72,11 @@ Type:
 
 Literals:
 
-    false true
+    false | true
 
 Operations:
 
-    b1 && b2 | b1 || b2
+    && | || | !
 
     new(bool)
 
@@ -66,36 +91,52 @@ Types:
     uintptr // word impl
 
     byte // uint8 impl
-    
+
     rune // int32 impl
 
 Literals:
 
     7 | 07 | 0x7 | '7'
 
-Operations:
-
-    + | - | * | / | % | & | `|` | ^ | &^ | << | >>
-
-    += | -= | *= | /= | %=
-
 * Integers, continued
 
-    &= | |= | ^= | &^= | <<= | >>=
+Operations:
 
-    == | != | < | <= | > | >=
+    % | & | `|` | ^ | &^ | << | >>
+
+    %= | &= | `|=` | ^= | &^= | <<= | >>=
 
     new(int) | new(uint) | new(uintptr) | new(byte) | new(rune)
 
-* Floats
+* Floating points
 
-Type:
+Types:
 
     float32 | float64
 
- Literals:
+Literals:
 
-   7.7 | 07.7 | 7e-7
+    7 | 07 | 0x7 | '7' | 7.7 | 07.7 | 7e-7
+
+Operations:
+
+    new(float32) | new(float64)
+
+* Complexes
+
+Types:
+
+    complex64 | complex128
+
+Literals:
+
+    7i | 7.7i | 7.7e7i | complex(N1, N1)
+
+Operations:
+
+    new(complex64) | new(complex128)
+
+* Integers, floating points, complexes
 
 Operations:
 
@@ -105,28 +146,6 @@ Operations:
 
     == | != | < | <= | > | >=
 
-    new(float32) | new(float64)
-
-* Complex
-
-Type:
-
-    complex64 | complex128
-
-Literals:
-
-    7i | 7.7i | 7e7i
-
-Operations:
-
-    +  | -  | *  | /
-
-    += | -= | *= | /=
-
-    == | != | <  | <= | > | >=
-
-    complex(n1, n2) | new(complex64) | new(complex128)
-
 * Strings
 
 Type:
@@ -135,7 +154,7 @@ Type:
 
 Literals:
 
-    "" | "s"
+    "" | `` | "s" | `s`
 
 Operations:
 
@@ -145,17 +164,9 @@ Operations:
 
     == | != | < | <= | > | >=
 
-    s[0] | s[0:1] | s[0:] | s[:1] | s[:]
+    s[i] | s[i1:i2] | s[i:] | s[:i] | s[:]
 
     len(s) | new(string) | string([]byte(b))
-
-* Strings, continued
-
-Iteration:
-
-    for i := range s {...}
-
-    for i, r := range s {...}
 
 * Built-in unnamed types
 
@@ -167,21 +178,17 @@ Type:
 
 Literals:
 
-    [N]T{} | [N]T{e} | [N]T{e1, e2} | [N]T{n1: e1, n2: e2} | [...]T{e1, e2}
+    A{} | A{e} | A{e1, e2} | A{i1: e1, i2: e2}
+
+    [...]T{} | [...]T{e} | [...]T{e1, e2} | [...]T{i1: e1, i2: e2}
 
 Operations:
 
     == | !=
 
-    a[0] | a[0:1] | a[0:] | a[:1] | a[:]
+    a[i] = e | a[i] | a[i1:i2] | a[i:] | a[:i] | a[:]
 
     cap(a) | len(a) | new(A)
-
-Iteration:
-
-    for i := range [N]T{} {...}
-
-    for i, e := range [N]T{} {...}
 
 * Slices
 
@@ -191,25 +198,37 @@ Type:
 
 Literals:
 
-    nil | []T{} | []T{e} | []T{e1, e2} | []T{n1: e1, n2: e2, n9: e9}
+    nil | S{} | S{e} | S{e1, e2} | S{i1: e1, i2: e2, i9: e9}
 
 Operations:
 
-    s == nil | s != nil
+    == nil | != nil
 
-    s[n] | s[n1:n2] | s[n:] | s[:n] | s[:] | &s
+    s[i] = e | s[i] | s[i1:i2] | s[i:] | s[:i] | s[:]
 
-    append(s, e) | append(s, e1, e2) | append(s1,...) | cap(s) | copy(dst, src) | len(s) | make(S)
+    append(s, e) | append(s, e1, e2) | append(s1, s2...) | copy(dst, src)
 
-    make(S, c) | make(S, l, c) | new(S)
+    cap(s) | len(s) | make(S) | make(S, c) | make(S, l, c) | new(S)
 
 * Slices, continued
 
-Iteration:
+Slices as subarrays:
 
-    for i := range s {...}
+- Slices are references to subarrays
+- Slice indexes start at 0
+- Slices have the length of the subarray
 
-    for i, e := range s {...}
+Slices as dynamic arrays:
+
+- Appending an element increments the length and inserts it at the last index
+- If the last index is outside the array, the subarray is first copied into a bigger array
+- Slice capacity is the length from the beginning of the subarray to the end of the array
+
+Slices cannot be compared because they can be circular:
+
+    var s = []interface{}{nil}
+
+    s[0] = s
 
 * Channels
 
@@ -217,7 +236,7 @@ Types:
 
     chan T | <-chan T | chan<- T
 
-Literals:
+Literal:
 
     nil
 
@@ -225,13 +244,9 @@ Operations:
 
     == | !=
 
-    <-c | c <- e
+    <-c | c <- e | (<-chan T)(c) | (chan<- T)(c)
 
     cap(c) | close(c) | len(c) | make(C) | make(C, n) | new(C)
-
-Iteration:
-
-    for e := range c {...}
 
 * Maps
 
@@ -241,21 +256,15 @@ Type:
 
 Literals:
 
-    nil | map[T1]T2{} | map[T1]T2{i: e} | map[T1]T2{i1: e1, i2: e2}
+    nil | M{} | M{i: e} | M{i1: e1, i2: e2}
 
 Operations:
 
-    m == nil | m != nil
+    == nil | != nil
 
-    m[i] | &m
-    
+    m[i] = e | m[i]
+
     len(m) | make(M) | make(M, n) | new(M)
-
-Iteration:
-
-    for i := range m {...} // i is the key
-
-    for i, e := range m {...} // i is the key
 
 * Pointers
 
@@ -263,31 +272,33 @@ Type:
 
     *T
 
+Literal:
+
+    nil
+
 Operations:
 
-    &v | *x
+    == nil | != nil
+
+    &x | *x
 
 * Structs
 
-Type:
+Types:
 
-    struct{} | struct{T} | struct{f T} | struct{f1 T1; f2 T2} | struct{f1 T1; f2, f3 T2}
-    
-    struct{f1 T1; f2, f3 T2; T3}
+    struct{}
 
-    struct{f T "any string literal"} // struct tag
+    struct{f T} | struct{f1, f2 T} | struct{f1, f2 T; f3, f4 T}
 
-    struct{f T "any string literal"; f2 T "any string literal"} // struct tags
+    struct{T} | struct{T1; T2} | struct{T; f T} | struct{T1; f T; T2}
+
+    struct{f T `json:"field_f" xml:"field-f,attr"`} // struct tag namespace format
+
+    struct{f1 T "foo"; f2 T "bar"}
 
 Literals:
 
-    struct{}{} | &struct{}{}
-    
-    struct{f1 T1; f2, f3 T2; T3}{} | &struct{f1 T1; f2, f3 T2; T3}{}
-    
-    struct{f1 T1; f2, f3 T2; T3}{T3: t3, f3: f3, f2: f2, f1: f1}
-
-    &struct{f1 T1; f2, f3 T2; T3}{T3: t3, f3: f3, f2: f2, f1: f1}
+    S{} | S{e} | S{e1, e2} | S{f: e} | S{f1: e2, f2: e2}
 
 * Structs, continued
 
@@ -295,7 +306,7 @@ Operations:
 
     == | !=
 
-    s.f | s.f = x | &s.f
+    s.f = x | s.f | &s.f
 
     new(S)
 
@@ -303,20 +314,20 @@ Operations:
 
 Types:
 
-    func() | func(T) | func() T | func(T) T | func(T1, T2) (T1, T2) | func(...T)
+    func() | func(T) | func() T | func(T) T | func(T, T) (T, T)
+
+    func(...T) | func(T, ...T) | func(T, T, ...T)
 
 Literals:
 
-    func() {...} | func(T) {...} | func() T {...} | func(T) T {...} | func(T1, T2) (T1, T2) {...}
-    
-    func(...T) {...}
+    F{} | F{ /* statements */ }
 
 Operations:
 
     == nil | != nil
-    
-    f() | f(s...) | &v
-    
+
+    f() | f(x) | f(x, x) | f(s...) | f(x, s...) | f(x, x, s...)
+
     new(F)
 
 * Package declarations
@@ -341,7 +352,7 @@ Named types are convertible to equivalent types
     var t2 T2 = 8
 
     t1 = T1(t2) // type conversion of expression t2 to type T1
-    
+
     var n = int(t2)
 
 * New named types, continued
