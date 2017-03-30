@@ -6,6 +6,31 @@ Will Faught
 Senior Software Engineer, BigCommerce
 will.faught@bigcommerce.com
 
+* Syntax
+
+UTF-8 files:
+
+    "I feel 😁"
+
+Newlines can replace semicolons and separate brackets from content:
+
+    struct {
+        x int
+        y int
+    }
+
+    import (
+        "io"
+        "net"
+    )
+
+Comma-delimited lists spanning multiple lines must have trailing commas:
+
+    position{
+        x: 7,
+        y: 8,
+    }
+
 * Comments
 
 Two kinds:
@@ -134,7 +159,7 @@ Literals:
 
 Operations:
 
-    new(complex64) | new(complex128)
+    imag(x) | new(complex64) | new(complex128) | real(x)
 
 * Integers, floating points, complexes
 
@@ -143,6 +168,8 @@ Operations:
     + | - | * | /
 
     += | -= | *= | /=
+
+    ++ | --
 
     == | != | < | <= | > | >=
 
@@ -204,7 +231,7 @@ Operations:
 
     == nil | != nil
 
-    s[i] = e | s[i] | s[i1:i2] | s[i:] | s[:i] | s[:]
+    s[i] = e | s[i] | s[i1:i2] | s[i:] | s[:i] | s[:] | s[i1:i2:i3] | s[:i1:i2]
 
     append(s, e) | append(s, e1, e2) | append(s1, s2...) | copy(dst, src)
 
@@ -264,7 +291,7 @@ Operations:
 
     m[i] = e | m[i]
 
-    len(m) | make(M) | make(M, n) | new(M)
+    delete(m, i) | len(m) | make(M) | make(M, n) | new(M)
 
 * Pointers
 
@@ -310,17 +337,34 @@ Operations:
 
     new(S)
 
+Embedded struct fields can be accessed at the top level if unambiguous:
+
+    type T1 struct { f1, f2 T }
+    type T2 struct { T1; f2, f3 T }
+
+    var t1 T1
+    var t2 T2
+
+    t1.f1 = z // t1 == T1{f1: z}
+    t1.f3 = z // t1 == T1{f1: z, f2: z}
+
+    t2.f1 = z // t2 == T2{T1: T1{f1: z}}
+    t2.f2 = z // t2 == T2{T1: T1{f1: z}, f2: z}
+    t2.f3 = z // t2 == T2{T1: T1{f1: z}, f2: z, f3: z}
+
 * Functions
 
 Types:
 
-    func() | func(T) | func() T | func(T) T | func(T, T) (T, T)
+    func() | func(T) T | func(T, T) (T, T) | func(...T) | func(T, ...T) | func(T, T, ...T)
 
-    func(...T) | func(T, ...T) | func(T, T, ...T)
+    func(T) | func(a T) | func(a, b T) | func(a T, b T) | func(a, b T, c, d T)
+
+    func() T | func() (a T) | func() (a, b T) | func() (a T, b T) | func() (a, b T, c, d T)
 
 Literals:
 
-    F{} | F{ /* statements */ }
+    F{} | F{ /* ... */ } // open bracket must be on the same line
 
 Operations:
 
@@ -330,67 +374,527 @@ Operations:
 
     new(F)
 
-* Package declarations
+Parameter and result names do not affect function type equivalence.
 
-* Constants
+* Statements
 
-* Variables
+* Expressions
 
-* Functions
+- Type literals
+- Type operations
+- Variables:
 
-* New named types
+    _ | a | _a | a_ | a_b | ab | a7 | Ʃ
 
-Declare a new named type in terms of an unnamed type or another named type:
+- Qualified variables for package imports:
 
-    type newtype oldtype
+    pkgname.varname
 
-Named types are convertible to equivalent types
+- Type conversions:
 
-    type T1 int; type T2 int
+    T(x)
 
-    var t1 T1 = 7
-    var t2 T2 = 8
+- Parentheses:
 
-    t1 = T1(t2) // type conversion of expression t2 to type T1
+    (x)
 
-    var n = int(t2)
+* Assignments
 
-* New named types, continued
+    a = a
+    a, b = b, a
 
-New named types have the operations of their old counterparts:
+    e = <-c
+    e, ok = <-c
 
-    type A [2]int; type F func(); type M map[int]int; type N int; type S []int
+    e = m[i]
+    e, ok = m[i]
 
-    A([2]int{7, 8})[:1]
+    v = x.(T)
+    v, ok = x.(T)
 
-    F(func(){})()
+* Deferred function invocations
 
-    M(map[int]int{7: 8})[7]
+    defer a()
 
-    N(7) + N(8)
+    defer a(z)
 
-    S("s") + S("t")
+    defer a()
+    defer b()
+
+Can change named function results:
+
+    func() (err error) {
+        defer func() {
+            err = fmt.Errorf("not implemented")
+        }()
+
+        return f()
+    }
+
+* Goroutine invocations
+
+    go a()
+
+    go a(z)
+
+* Conditional statements
+
+    if boolexpression { /* ... */ }
+
+    if boolexpression { /* ... */ } else { /* ... */ }
+
+    if boolexpression { /* ... */ } else if boolexpression { /* ... */ } else { /* ... */ }
+
+    if limitedstatement; boolexpression { /* ... */ }
+
+* Loop statements
+
+    for { /* ... */ }
+
+    for x { /* ... */ }
+
+    for limitedstatement; boolexpression; limitedstatement { /* ... */ }
+
+    for limitedstatement ; boolexpression; { /* ... */ }
+
+    for ; boolexpression; limitedstatement { /* ... */ }
+
+    for ; boolexpression; { /* ... */ }
+
+    for i := range x { /* ... */ } // x is an array, channel, map, slice, or string
+
+    for i, e := range x { /* ... */ } // x is an array, map, slice, or string
+
+    label:
+    for {
+        break
+        break label
+        continue
+        continue label
+    }
+
+* Switches
+
+    switch x {}
+
+    switch limitedstatement; x {}
+
+    switch x1 {
+    case x2:
+        /* ... */
+
+    case x3, x4:
+        /* ... */
+
+    case x4:
+        fallthrough
+
+    case x5:
+        break
+
+    case x6:
+
+    default:
+        /* ... */
+    }
+
+* Selects
+
+    select {}
+
+    select {
+    case <-c:
+        /* ... */
+
+    case c <- x:
+        /* ... */
+    
+    default:
+        /* ... */
+    }
+
+    select {
+    default:
+        break
+    }
+
+* Gotos
+
+    goto label1
+
+    label1:
+    label2:
+    /* ... */
+
+    goto label2
+
+- Labels are only used in function blocks
+- Labels are scoped to the entire function block
+- Label scope extends before label declarations and inside nested blocks
+
+* Import declarations
+
+Singles:
+
+    import "a"
+    import "b"
+
+Blocks:
+
+    import ("a")
+
+    import ("a"; "b")
+
+* Constant declarations
+
+Singles:
+
+    const a T = z
+    const b, c T = z, z
+
+    const a = z
+    const b, c = z, z
+
+Blocks:
+
+    const (a T = z)
+    const (b = z)
+
+    const (a, b T = z, z)
+    const (c, d = z, z)
+
+    const (a, b T = z, z; c, d T = z, z)
+    const (e, f = z, z; g, h = z, z)
+
+* Variable declarations
+
+Singles:
+
+    var a T
+    var b T = z
+
+    var a, b T
+    var c, d T = z, z
+
+    var a = z
+    var b, c = z, z
+
+    var a = oneresult()
+    var b, c = tworesults()
+
+* Variable declarations, continued
+
+Blocks:
+
+    var (a T)
+    var (b T = z)
+    var (c = z)
+
+    var (a, b T)
+    var (c, d T = z, z)
+    var (e, f = z, z)
+
+    var (a, b T; c, d T)
+    var (e, f T = z, z; g, h T = z, z)
+    var (i, j = z, z; k, l = z, z)
+
+* Variable declarations, continued
+
+Short assignments:
+
+    var a, err = z()    // "var a T1" and "var err T2" declarations implied
+    b, err := y()       // "var b T3" declaration implied
+    c, d, err := x()    // "var c T4" and "var d T5" declarations implied
+    e, c, d, err := w() // "var e T5" declaration implied
+
+    a, err := z()       // do not do this; use "var a, err = z()" instead
+    b, err := z()
+
+* Function declarations
+
+Form:
+
+    func f(a T) (b T) { /* ... */ }
+
+Equivalent to:
+
+    var f = func(a T) (b T) { /* ... */ }
+
+Named parameter and result variables are declared implicitly:
+
+    func f(a T) (b T) {
+        // compiler error: var a, b T
+        a, b = z, z
+        return
+    }
+
+Only declared in package scope.
+
+* Type declarations
+
+Declare a new type in terms of an existing type:
+
+    type newtypename existingtype
+
+- The new type's "underlying type" is the existing type.
+- New types are equivalent to their underlying types
+- New types and equivalent types can be type converted between each other
+
+Singles:
+
+    type a z
+    type b z
+
+Blocks:
+
+    type (a z)
+
+    type (a z; b z)
+
+* Type declarations, continued
+
+New types have the literals and operations of equivalent types:
+
+    type A [1]int
+    
+    A{7}[0] // == 7
+    
+    type F func()
+    
+    F(func(){})() // compile error: F{}
+    
+    type I int
+    
+    I(7) + I(8) // == I(15)
+    
+    type M map[int]int
+    
+    M{7: 8}[7] // == 8
+    
+    type S string
+
+    S("a") + S("b") // == S("ab")
 
 * Methods
 
-    type T struct{f T2}
+    type T struct{f *T}
 
     func (T) m1() {}
 
-    func (t T) m2(T) T { return t }
+    func (*T) m2() {}
 
-    func (t *T) m3(T, T) (T, T) { return t, t }
+    func (t T) m3() {}
 
-    func (*T) f() {} // compiler error: f is already a field
+    func (t *T) m4() {}
 
-    var x T1 = ...
-    var y *T2 = ...
+    func (T) f() {} // compile error: f is already a field
 
-    x.m1(); (x.m1)()
-    y.m1(); (y.m1)()
+    var a T
+    var b *T
+    a.m1()
+    b.m1() // run error: nil dereference
+    (a.m2)()
+    (b.m2)()
 
-type T int
+Only declared in package scope.
 
-func (t *T) negate() {...}
+* Methods, continued
+
+Methods are inherited from embedded types:
+
+    type T1 struct{}
+
+    func (T1) m1(a, b T1) (c, d T1) { /* ... */ }
+
+    type T2 struct{T1}
+
+    func (*T2) m2(a, b T2) (c, d T2) { /* ... */ }
+
+T1 method set:
+
+- m1(T1, T1) (T1, T1)
+
+T2 method set:
+
+- m1(T1, T1) (T1, T1)
+- m2(T2, T2) (T2, T2)
 
 * Interfaces
+
+Interfaces are abstract method sets.
+
+T1 interface:
+
+    interface {
+        m1(T1, T1) (T1, T1)
+    }
+
+T2 interface:
+
+    interface {
+        m1(T1, T1) (T1, T1)
+        m2(T2, T2) (T2, T2)
+    }
+
+* Interfaces, continued
+
+Types:
+
+    interface{} | interface{m()} | interface{m1(); m2()}
+
+Literals:
+
+    nil
+
+Operations:
+
+    == nil | != nil | i.m | i.(T)
+
+* Interfaces, continued
+
+Use interface types to abstract method implementations:
+
+    type T struct{}
+
+    func (T) A() {}
+
+    func B(a T) { a.A() }
+
+    func C(a interface{ A() }) { a.A() }
+
+    /* ... */
+
+    B(T{})
+    C(T{})
+
+* Scopes
+
+Nested scopes:
+
+- Block
+- Function
+- File
+- Package
+- Universe
+
+Namespaces:
+
+- Single namespace for constants, variables, types, and functions
+- Single namespace for struct fields and methods
+
+* Exports
+
+- All package-scope declarations are exported to the package
+- All capitalized package-scope declarations are exported to other packages
+- Exportation only controls the ability to refer to a package declaration by name
+
+    // package p
+
+    type t struct{}
+
+    func A() t { return t{} }
+
+    func B(t) {}
+
+    // package q
+
+    p.A(p.B())
+
+    var x = p.A() // compiler error: var x p.t = p.A()
+
+    p.B(x)
+
+* Packages
+
+GOPATH defaults to ~/go
+
+GOPATH tree for main package x and library package x/internal/y:
+
+    bin/
+        x
+    pkg/
+        darwin_amd64/
+            x/
+                internal/
+                    y.a
+    src/
+        x/
+            internal/
+                y/
+                    y.go
+            main.go
+
+* Packages, continued
+
+Resolution of import path x/internal/y:
+
+- Fail if . is not x or under x
+- Use ./vendor/x/internal/y if it exists
+- Use ../vendor/x/internal/y if it exists; repeat up the ancestor chain
+- Use $GOPATH/src/x/internal/y if it exists
+
+Package nesting has no semantic meaning but is often meaningful:
+
+    encoding
+    encoding/json
+    io
+    io/ioutil
+    net
+    net/http
+    net/http/httputil
+
+* Panics
+
+Fail fast philosophy enforced semantically.
+
+Irrecoverable conditions cause "panics":
+
+- Nil dereference
+- Goroutine deadlock
+- Triggered by the programmer
+
+Panics are special-purpose exceptions that terminate the program.
+
+Trigger (throw) a panic:
+
+    panic(panicvalue) // takes any interface{} ... unfortunately that includes nil
+
+Recover (catch) a panic:
+
+    var panicvalue = recover() // panicvalue has type interface{}
+
+* Panics, continued
+
+- Call the panic function anywhere
+- Call the recover function only in deferred functions (it always returns nil otherwise):
+
+    defer func() { if v := recover(); v != nil { /* panic happened */ } }()
+
+* Errors
+
+    type error interface { Error() string }
+
+Used everywhere to signal error conditions:
+
+    if err := f(); err != nil { /* error happened */ }
+
+Can add more detail:
+
+    type Error struct {
+        error
+        RequestID string
+    }
+
+    if err := f(); err != nil {
+        if err, ok := err.(*Error); ok {
+            log.Println(err.RequestID)
+        }
+
+        return err
+    }
+
+* Have fun!
+
+What kind of Gopher are you?
+
+[[https://gopherize.me]]
