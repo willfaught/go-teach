@@ -503,7 +503,7 @@ Can change named function results:
 
     case c <- x:
         /* ... */
-    
+
     default:
         break
     }
@@ -512,8 +512,14 @@ Can change named function results:
 
     goto label1
 
+    /* ... */
+
     label1:
+
+    /* ... */
+
     label2:
+
     /* ... */
 
     goto label2
@@ -646,21 +652,21 @@ Blocks:
 New types have the literals and operations of equivalent types:
 
     type A [1]int
-    
+
     A{7}[0] // == 7
-    
+
     type F func()
-    
+
     F(func(){})() // compile error: F{}
-    
+
     type I int
-    
+
     I(7) + I(8) // == I(15)
-    
+
     type M map[int]int
-    
+
     M{7: 8}[7] // == 8
-    
+
     type S string
 
     S("a") + S("b") // == S("ab")
@@ -739,7 +745,7 @@ Literals:
 Operations:
 
     == | !=
-    
+
     i.m | i.(T)
 
     T(x) | new(T)
