@@ -66,6 +66,10 @@ Some comments are special annotations:
 
 * Expressions
 
+* Parentheses
+
+    (x) | ((x))
+
 * Literals
 
 Untyped:
@@ -103,6 +107,10 @@ Default types:
     var _ = nil  // compiler error, must be typed
     var _ = 'r'  // rune
     var _ = "s"  // string
+
+* Variables
+
+    _ | v | vv | v_ | _v | v_v | v7 | v7v | v.v | Ʃ
 
 * Built-in named types
 
@@ -330,9 +338,9 @@ Types:
 
     struct{}
 
-    struct{f T} | struct{f1, f2 T} | struct{f1, f2 T; f3, f4 T}
+    struct{f T} | struct{f1 T; f2 T} | struct{f1, f2 T} | struct{f1, f2 T; f3, f4 T}
 
-    struct{T} | struct{T1; T2} | struct{T; f T} | struct{T1; f T; T2}
+    struct{T} | struct{T1; T2} | struct{T; f T} | struct{f T; T} | struct{T1; f T; T2}
 
     struct{f T `json:"field_f" xml:"field-f,attr"`} // struct tag namespace format
 
@@ -392,26 +400,6 @@ Operations:
 Parameter and result names do not affect function type equivalence.
 
 * Statements
-
-* Expressions
-
-- Type literals
-- Type operations
-- Variables:
-
-    _ | a | _a | a_ | a_b | ab | a7 | Ʃ
-
-- Qualified variables for package imports:
-
-    pkgname.varname
-
-- Type conversions:
-
-    T(x)
-
-- Parentheses:
-
-    (x)
 
 * Assignments
 
