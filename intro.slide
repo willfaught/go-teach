@@ -823,9 +823,9 @@ Namespaces:
 
 * Exports
 
-- All package-scope declarations are exported to the same package
-- All capitalized package-scope declarations are exported to other packages
-- Exportation only controls the ability to refer to a package declaration by name
+- All package-scope identifiers are exported to the same package
+- All capitalized package-scope identifiers are exported to other packages
+- Exportation only provides the ability to write a package's identifier
 
     // package p
 
