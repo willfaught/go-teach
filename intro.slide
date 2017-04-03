@@ -393,7 +393,7 @@ Operations:
 
     == nil | != nil
 
-    f() | f(x) | f(x, x) | f(s...) | f(x, s...) | f(x, x, s...)
+    f() | f(x) | f(s...) | f(x, s...)
 
     F(x) | new(F)
 
