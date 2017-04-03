@@ -923,7 +923,7 @@ Package nesting has no semantic meaning but is often meaningful:
 
 * Panics
 
-Fail fast philosophy enforced semantically.
+Fail fast philosophy implementation and convention.
 
 Irrecoverable conditions cause "panics":
 
