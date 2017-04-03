@@ -843,6 +843,40 @@ Namespaces:
 
     p.B(x)
 
+* Exports, continued
+
+Field export trick:
+
+    type person1 struct { id, name string }
+    type person2 struct { ID, Name string }
+
+    json.Marshal(person1{}) // {}
+    json.Marshal(person1{}) // {"ID":"","Name":""}
+
+* Exports, continued
+
+Method export trick:
+
+    // package p
+
+    type Doer interface { Do(); do() }
+
+    type BaseDoer struct{}
+
+    var _ Doer = BaseDoer{}
+
+    func (d BaseDoer) Do() {}
+    func (d BaseDoer) do() {}
+
+    // package q
+
+    type MyDoer struct{}
+
+    var _ p.Doer = MyDoer{} // compile error: MyDoer missing the p.Doer.do method
+
+    func (d MyDoer) Do() {}
+    func (d MyDoer) do() {}
+
 * Packages
 
 GOPATH defaults to ~/go
