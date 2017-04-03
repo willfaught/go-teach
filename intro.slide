@@ -228,7 +228,7 @@ Operations:
 
     == | !=
 
-    a[i] = e | a[i] | a[i1:i2] | a[i:] | a[:i] | a[:]
+    a[i] = e | a[i] | a[l:h] | a[l:] | a[:h] | a[:] | a[l:h:m] | a[:h:m]
 
     cap(a) | len(a) | new(A)
 
