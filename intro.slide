@@ -342,9 +342,9 @@ Types:
 
     struct{T} | struct{T1; T2} | struct{T; f T} | struct{f T; T} | struct{T1; f T; T2}
 
-    struct{f T `json:"field_f" xml:"field-f,attr"`}
+    struct{f1, f2 T `json:"field_f" xml:"field-f,attr"`}
 
-    struct{f1 T "foo"; f2 T "bar"}
+    struct{f1 T "s"; f2 T "s"}
 
 Literals:
 
