@@ -799,8 +799,8 @@ Interface values are nil only if their internal value and type pointers are nil:
     var i interface{} // i == nil
     var p *int        // p == (*int)(nil)
 
-    i = 7 // i != nil
-    i = p // i != nil
+    i = 7 // i == 7,           i != nil
+    i = p // i == (*int)(nil), i != nil
 
 * Name binding
 
