@@ -442,13 +442,13 @@ Can change named function results:
 
 * Conditional statements
 
-    if boolexpression { /* ... */ }
+    if b { /* ... */ }
 
-    if boolexpression { /* ... */ } else { /* ... */ }
+    if b { /* ... */ } else { /* ... */ }
 
-    if boolexpression { /* ... */ } else if boolexpression { /* ... */ } else { /* ... */ }
+    if b { /* ... */ } else if b { /* ... */ } else { /* ... */ }
 
-    if limitedstatement; boolexpression { /* ... */ }
+    if limitedstatement; b { /* ... */ }
 
 * Loop statements
 
@@ -456,13 +456,13 @@ Can change named function results:
 
     for x { /* ... */ }
 
-    for limitedstatement; boolexpression; limitedstatement { /* ... */ }
+    for limitedstatement; b; limitedstatement { /* ... */ }
 
-    for limitedstatement ; boolexpression; { /* ... */ }
+    for limitedstatement ; b; { /* ... */ }
 
-    for ; boolexpression; limitedstatement { /* ... */ }
+    for ; b; limitedstatement { /* ... */ }
 
-    for ; boolexpression; { /* ... */ }
+    for ; b; { /* ... */ }
 
     for i := range x { /* ... */ } // x is an array, channel, map, slice, or string
 
