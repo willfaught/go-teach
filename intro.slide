@@ -691,7 +691,7 @@ Only in package scope.
 
     func (t *T) m4() {}
 
-    func (T) f() {} // compile error: f is already a field
+    func (T) f() {} // compile error: one namespace for methods and fields
 
     var a T
     var b *T
