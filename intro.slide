@@ -128,7 +128,7 @@ Operations:
 
     && | || | !
 
-    new(bool)
+    bool(x) | new(bool)
 
 * Integers
 
@@ -156,7 +156,7 @@ Operations:
 
     %= | &= | |= | ^= | &^= | <<= | >>=
 
-    new(int) | new(uint) | new(uintptr) | new(byte) | new(rune)
+    T(x) | new(T)
 
 * Floating points
 
@@ -170,7 +170,7 @@ Literals:
 
 Operations:
 
-    new(float32) | new(float64)
+    T(x) | new(T) | new(T)
 
 * Complexes
 
@@ -184,7 +184,7 @@ Literals:
 
 Operations:
 
-    imag(x) | new(complex64) | new(complex128) | real(x)
+    T(x) | imag(x) | new(T) | real(x)
 
 * Integers, floating points, complexes
 
@@ -218,7 +218,7 @@ Operations:
 
     s[i] | s[i1:i2] | s[i:] | s[:i] | s[:]
 
-    len(s) | new(string) | string([]byte(b))
+    string(x) | len(s) | new(string) | string([]byte(b))
 
 * Built-in unnamed types
 
@@ -238,7 +238,7 @@ Operations:
 
     a[i] = e | a[i] | &a[i] | a[l:h] | a[l:] | a[:h] | a[:] | a[l:h:m] | a[:h:m]
 
-    cap(a) | len(a) | new(A)
+    A(x) | cap(a) | len(a) | new(A)
 
 * Slices
 
@@ -258,7 +258,7 @@ Operations:
 
     append(s, e) | append(s, e1, e2) | append(s1, s2...) | copy(dst, src)
 
-    cap(s) | len(s) | make(S) | make(S, c) | make(S, l, c) | new(S)
+    S(x) | cap(s) | len(s) | make(S) | make(S, c) | make(S, l, c) | new(S)
 
 * Slices, continued
 
@@ -296,7 +296,7 @@ Operations:
 
     <-c | c <- e | (<-chan T)(c) | (chan<- T)(c)
 
-    cap(c) | close(c) | len(c) | make(C) | make(C, n) | new(C)
+    C(x) | cap(c) | close(c) | len(c) | make(C) | make(C, n) | new(C)
 
 * Maps
 
@@ -314,7 +314,7 @@ Operations:
 
     m[i] = e | m[i]
 
-    delete(m, i) | len(m) | make(M) | make(M, n) | new(M)
+    M(x) | delete(m, i) | len(m) | make(M) | make(M, n) | new(M)
 
 * Pointers
 
@@ -330,7 +330,7 @@ Operations:
 
     == | !=
 
-    &x | *x
+    P(x) | &x | *x
 
 * Structs
 
@@ -358,7 +358,7 @@ Operations:
 
     s.f = x | s.f | &s.f
 
-    new(S)
+    S(x) | new(S)
 
 Embedded struct fields can be accessed at the top level if unambiguous:
 
@@ -395,7 +395,7 @@ Operations:
 
     f() | f(x) | f(x, x) | f(s...) | f(x, s...) | f(x, x, s...)
 
-    new(F)
+    F(x) | new(F)
 
 Parameter and result names do not affect function type equivalence.
 
@@ -751,7 +751,11 @@ Literals:
 
 Operations:
 
-    == nil | != nil | i.m | i.(T)
+    == | !=
+    
+    i.m | i.(T)
+
+    T(x) | new(T)
 
 * Interfaces, continued
 
