@@ -505,11 +505,6 @@ Can change named function results:
         /* ... */
     
     default:
-        /* ... */
-    }
-
-    select {
-    default:
         break
     }
 
