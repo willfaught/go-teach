@@ -823,7 +823,7 @@ Namespaces:
 
 * Exports
 
-- All package-scope declarations are exported to the package
+- All package-scope declarations are exported to the same package
 - All capitalized package-scope declarations are exported to other packages
 - Exportation only controls the ability to refer to a package declaration by name
 
