@@ -438,6 +438,8 @@ Blocks:
     const (a, b T = z, z; c, d T = z, z)
     const (e, f = z, z; g, h = z, z)
 
+Constants don't have to be used.
+
 * Variable declarations
 
 Singles:
@@ -482,6 +484,8 @@ Short assignments:
     a, err := z()       // do not do this; use "var a, err = z()" instead
     b, err := z()
 
+Local variables have to be used.
+
 * Type declarations
 
 Declare a new type in terms of an existing type:
@@ -491,6 +495,8 @@ Declare a new type in terms of an existing type:
 - The new type's "underlying type" is the existing type.
 - New types are equivalent to their underlying types
 - New types and equivalent types can be type converted between each other
+
+Types don't have to be used.
 
 Singles:
 
@@ -673,6 +679,7 @@ Blocks:
     import ("a"; "b")
 
 Only in file scope.
+All imports must be used.
 
 * Function declarations
 
