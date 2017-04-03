@@ -603,6 +603,9 @@ Can change named function results:
         continue label
     }
 
+Loop index variables are declared once and reassigned per iteration.
+Copy index variable values to keep them past the iteration.
+
 * Switches
 
     switch {} | switch x {} | switch x.(type) | switch simplestatement; x {}
