@@ -32,6 +32,8 @@ Newlines can replace semicolons and separate brackets from content:
 
 Comma-delimited lists spanning multiple lines must have trailing commas:
 
+    position{x: 7, y: 8}
+
     position{
         x: 7,
         y: 8,
