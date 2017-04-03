@@ -240,7 +240,7 @@ Type:
 
 Literals:
 
-    nil | S{} | S{e} | S{e1, e2} | S{i1: e1, i2: e2, i9: e9}
+    nil | S{} | S{e} | S{i: e}
 
 Operations:
 
