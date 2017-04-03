@@ -657,6 +657,18 @@ Copy index variable values to keep them past the iteration.
         /* ... */
     }
 
+* Switches, continued
+
+    label:
+    for {
+        switch {
+        case false:
+            break       // breaks the switch, not the loop
+        default:
+            break label // breaks the loop
+        }
+    }
+
 * Selects
 
     select {}
@@ -670,6 +682,18 @@ Copy index variable values to keep them past the iteration.
 
     default:
         break
+    }
+
+* Selects, continued
+
+    label:
+    for {
+        select {
+        case <-c:
+            break       // breaks the select, not the loop
+        default:
+            break label // breaks the loop
+        }
     }
 
 * Gotos
