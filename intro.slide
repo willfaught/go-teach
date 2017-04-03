@@ -708,20 +708,20 @@ Methods are inherited from embedded types:
 
     type T1 struct{}
 
-    func (T1) m1(a, b T1) (c, d T1) { /* ... */ }
+    func (T1) m1() {}
 
     type T2 struct{T1}
 
-    func (*T2) m2(a, b T2) (c, d T2) { /* ... */ }
+    func (*T2) m2() {}
 
 T1 method set:
 
-- m1(T1, T1) (T1, T1)
+- m1()
 
 T2 method set:
 
-- m1(T1, T1) (T1, T1)
-- m2(T2, T2) (T2, T2)
+- m1()
+- m2()
 
 * Interfaces
 
@@ -730,14 +730,14 @@ Interfaces are abstract method sets.
 T1 interface:
 
     interface {
-        m1(T1, T1) (T1, T1)
+        m1()
     }
 
 T2 interface:
 
     interface {
-        m1(T1, T1) (T1, T1)
-        m2(T2, T2) (T2, T2)
+        m1()
+        m2()
     }
 
 * Interfaces, continued
