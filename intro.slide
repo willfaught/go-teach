@@ -242,6 +242,8 @@ Operations:
 
     A(x) | cap(a) | len(a) | new(A)
 
+Not synchronized.
+
 * Slices
 
 Type:
@@ -261,6 +263,8 @@ Operations:
     append(s, e) | append(s, e1, e2) | append(s1, s2...) | copy(dst, src)
 
     S(x) | cap(s) | len(s) | make(S) | make(S, c) | make(S, l, c) | new(S)
+
+Not synchronized.
 
 * Slices, continued
 
@@ -318,6 +322,8 @@ Operations:
 
     M(x) | delete(m, i) | len(m) | make(M) | make(M, n) | new(M)
 
+Not synchronized.
+
 * Pointers
 
 Type:
@@ -335,6 +341,7 @@ Operations:
     P(x) | &x | *x
 
 Value x must be addressable for &x.
+Not synchronized.
 
 * Structs
 
@@ -363,6 +370,10 @@ Operations:
     s.f = x | s.f | &s.f
 
     S(x) | new(S)
+
+Not synchronized.
+
+* Structs, continued
 
 Embedded struct fields can be accessed at the top level if unambiguous:
 
@@ -400,6 +411,8 @@ Operations:
     f() | f(x) | f(s...) | f(x, s...)
 
     F(x) | new(F)
+
+Not synchronized.
 
 * Functions, continued
 
