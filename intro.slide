@@ -725,7 +725,7 @@ T2 method set:
 
 * Interfaces
 
-Interfaces are abstract method sets.
+Interface types represent method sets.
 
 T1 interface:
 
