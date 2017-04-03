@@ -448,7 +448,7 @@ Can change named function results:
 
     if b { /* ... */ } else if b { /* ... */ } else { /* ... */ }
 
-    if limitedstatement; b { /* ... */ }
+    if simplestatement; b { /* ... */ } // empty, expression, send, inc, dec, assignment, short decl
 
 * Loop statements
 
