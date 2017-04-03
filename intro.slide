@@ -320,7 +320,7 @@ Literal:
 
 Operations:
 
-    == nil | != nil
+    == | !=
 
     &x | *x
 
