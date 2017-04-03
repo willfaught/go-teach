@@ -944,10 +944,12 @@ Recover from (catch) a panic:
 
 * Panics, continued
 
-- Call the panic function anywhere
-- Call the recover function only in deferred functions (it always returns nil otherwise):
+Call the panic function anywhere.
+Call the recover function only in deferred functions (it always returns nil otherwise):
 
     defer func() { if v := recover(); v != nil { /* panic happened */ } }()
+
+Don't handle all errors with panics and recoveries like normal exceptions.
 
 * Errors
 
