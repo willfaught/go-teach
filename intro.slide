@@ -456,11 +456,11 @@ Can change named function results:
 
     for x { /* ... */ }
 
-    for limitedstatement; b; limitedstatement { /* ... */ }
+    for simplestatement; b; simplestatement { /* ... */ }
 
-    for limitedstatement ; b; { /* ... */ }
+    for simplestatement ; b; { /* ... */ }
 
-    for ; b; limitedstatement { /* ... */ }
+    for ; b; simplestatement { /* ... */ }
 
     for ; b; { /* ... */ }
 
@@ -480,7 +480,7 @@ Can change named function results:
 
     switch x {}
 
-    switch limitedstatement; x {}
+    switch simplestatement; x {}
 
     switch x1 {
     case x2:
