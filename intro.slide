@@ -837,9 +837,9 @@ Namespaces:
 
     // package q
 
-    p.A(p.B())
+    p.B(p.A())
 
-    var x = p.A() // compiler error: var x p.t = p.A()
+    var x = p.A() // compile error: var x p.t = p.A()
 
     p.B(x)
 
