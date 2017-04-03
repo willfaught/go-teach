@@ -69,31 +69,31 @@ Simple operations are evaluated by the compiler:
 
 Literals implicitly type convert:
 
-    var _ complex64 = 123i
+    var _  complex64 = 123i
     var _ complex128 = 123i
-    var _ float32 = 1.2e3
-    var _ float64 = 1.2e3
-    var _ int8 = 123
-    var _ int16 = 123
-    var _ int32 = 'r'
-    var _ int64 = 'r'
+    var _    float32 = 1.2e3
+    var _    float64 = 1.2e3
+    var _       int8 = 123
+    var _      int16 = 123
+    var _      int32 = 'r'
+    var _      int64 = 'r'
 
 * Literals, continued
 
 Numbers have 256 bits of precision:
 
-    var _ int64 = 1 << 100 // compiler error
+    var _ int64 = 1 << 100        // compiler error
     var _ int64 = 1 << 100 >> 100 // no compiler error
 
 Default types:
 
     var _ = true // bool
     var _ = 7.7i // complex128
-    var _ = 7.7 // float64
-    var _ = 7 // int
-    var _ = nil // compiler error, must be typed
-    var _ = 'r' // rune
-    var _ = "s" // string
+    var _ = 7.7  // float64
+    var _ = 7    // int
+    var _ = nil  // compiler error, must be typed
+    var _ = 'r'  // rune
+    var _ = "s"  // string
 
 * Expressions
 
