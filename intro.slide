@@ -246,7 +246,7 @@ Operations:
 
     == nil | != nil
 
-    s[i] = e | s[i] | s[i1:i2] | s[i:] | s[:i] | s[:] | s[i1:i2:i3] | s[:i1:i2]
+    s[i] = e | s[i] | s[l:h] | s[l:] | s[:h] | s[:] | s[l:h:m] | s[:h:m]
 
     append(s, e) | append(s, e1, e2) | append(s1, s2...) | copy(dst, src)
 
