@@ -87,6 +87,8 @@ Default types:
     var _ = 'r' // rune
     var _ = "s" // string
 
+* Expressions
+
 * Built-in named types
 
 * Booleans
