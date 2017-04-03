@@ -440,7 +440,7 @@ Can change named function results:
 
     go a(z)
 
-* Conditional statements
+* Conditionals
 
     if b { /* ... */ }
 
@@ -450,7 +450,7 @@ Can change named function results:
 
     if simplestatement; b { /* ... */ } // empty, expression, send, inc, dec, assignment, short decl
 
-* Loop statements
+* Loops
 
     for { /* ... */ }
 
