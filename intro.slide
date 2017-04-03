@@ -379,7 +379,7 @@ Embedded struct fields can be accessed at the top level if unambiguous:
 
 Types:
 
-    func() | func(T) T | func(T, T) (T, T) | func(...T) | func(T, ...T) | func(T, T, ...T)
+    func() | func(T) T | func(T, T) (T, T) | func(...T) | func(T, ...T)
 
     func(T) | func(a T) | func(a, b T) | func(a T, b T) | func(a, b T, c, d T)
 
