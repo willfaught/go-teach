@@ -925,21 +925,21 @@ Package nesting has no semantic meaning but is often meaningful:
 
 Fail fast philosophy implementation and convention.
 
-Irrecoverable conditions cause "panics":
+The system and programmer "panic" for irrecoverable conditions:
 
-- Nil dereference
-- Goroutine deadlock
-- Triggered by the programmer
+- Undefined behavior (nil dereference)
+- Bad behavior (goroutine deadlock)
+- Impossible errors (`json.Marshal(1)`)
 
-Panics are special-purpose exceptions that terminate the program.
+Panics are special-purpose exceptions. Deferred function invocations still run.
 
 Trigger (throw) a panic:
 
-    panic(panicvalue) // takes any interface{} ... unfortunately that includes nil
+    panic(panicvalue) // parameter has type interface{}, nil okay
 
-Recover (catch) a panic:
+Recover from (catch) a panic:
 
-    var panicvalue = recover() // panicvalue has type interface{}
+    var panicvalue = recover() // result has type interface{}, nil possible
 
 * Panics, continued
 
