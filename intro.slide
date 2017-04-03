@@ -108,7 +108,7 @@ Default types:
     var _ = 'r'  // rune
     var _ = "s"  // string
 
-* Variables
+* Identifiers
 
     _ | v | vv | v_ | _v | v_v | v7 | v7v | v.v | Ʃ
 
