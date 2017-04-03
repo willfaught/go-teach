@@ -222,9 +222,7 @@ Type:
 
 Literals:
 
-    A{} | A{e} | A{e1, e2} | A{i1: e1, i2: e2}
-
-    [...]T{} | [...]T{e} | [...]T{e1, e2} | [...]T{i1: e1, i2: e2}
+    A{} | A{e} | A{i: e} | [...]T{} | [...]T{e} | [...]T{i: e}
 
 Operations:
 
