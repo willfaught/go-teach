@@ -397,6 +397,18 @@ Operations:
 
     F(x) | new(F)
 
+* Functions, continued
+
+Named parameter and result variables are declared implicitly:
+
+    func f(a T) (b T) {
+        // compiler error: var a, b T
+
+        a, b = z, z
+
+        // ...
+    }
+
 Parameter and result names do not affect function type equivalence.
 
 * Statements
@@ -660,14 +672,6 @@ Form:
 Equivalent to:
 
     var f = func(a T) (b T) { /* ... */ }
-
-Named parameter and result variables are declared implicitly:
-
-    func f(a T) (b T) {
-        // compiler error: var a, b T
-        a, b = z, z
-        return
-    }
 
 Only declared in package scope.
 
