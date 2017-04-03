@@ -663,6 +663,8 @@ Blocks:
 
     import ("a"; "b")
 
+Only in package scope.
+
 * Function declarations
 
 Form:
@@ -673,7 +675,7 @@ Equivalent to:
 
     var f = func(a T) (b T) { /* ... */ }
 
-Only declared in package scope.
+Only in package scope.
 
 * Methods
 
@@ -696,7 +698,7 @@ Only declared in package scope.
     (a.m2)()
     (b.m2)()
 
-Only declared in package scope.
+Only in package scope.
 
 * Methods, continued
 
