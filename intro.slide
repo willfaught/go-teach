@@ -762,18 +762,23 @@ Operations:
 
 Use interface types to abstract method implementations:
 
-    type T struct{}
+    type T1 struct{}
 
-    func (T) A() {}
+    func (T1) A() {}
 
-    func B(a T) { a.A() }
+    func B(a T1) { a.A() }
 
     func C(a interface{ A() }) { a.A() }
 
+    type T2 struct{}
+
+    func (T2) A() {}
+
     /* ... */
 
-    B(T{})
-    C(T{})
+    B(T1{})
+    C(T1{})
+    C(T2{})
 
 * Scopes
 
