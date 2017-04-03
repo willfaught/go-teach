@@ -157,7 +157,7 @@ Types:
 
 Literals:
 
-    7i | 7.7i | 7.7e7i | complex(N1, N1)
+    N1 + N2i | N1 - N2i | complex(N1, N1)
 
 Operations:
 
