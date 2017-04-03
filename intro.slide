@@ -67,7 +67,7 @@ Simple operations are evaluated by the compiler:
 
     1 + 2 | 3 / 2 | 1 << 2 | 1 < 2 | "a" + "b"
 
-Number literals implicitly type convert:
+Literals implicitly type convert:
 
     var _ complex64 = 123i
     var _ complex128 = 123i
