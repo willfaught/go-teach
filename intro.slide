@@ -298,7 +298,7 @@ Type:
 
 Literals:
 
-    nil | M{} | M{i: e} | M{i1: e1, i2: e2}
+    nil | M{} | M{i: e}
 
 Operations:
 
