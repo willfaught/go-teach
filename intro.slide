@@ -14,15 +14,21 @@ UTF-8 files:
 
 Newlines can replace semicolons and separate brackets from content:
 
+    struct{ x int; y int }
+
     struct {
         x int
         y int
     }
 
+    import ("io"; "net")
+
     import (
         "io"
         "net"
     )
+
+* Syntax, continued
 
 Comma-delimited lists spanning multiple lines must have trailing commas:
 
