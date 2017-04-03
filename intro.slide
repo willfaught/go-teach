@@ -458,12 +458,6 @@ Can change named function results:
 
     for simplestatement; b; simplestatement { /* ... */ }
 
-    for simplestatement ; b; { /* ... */ }
-
-    for ; b; simplestatement { /* ... */ }
-
-    for ; b; { /* ... */ }
-
     for i := range x { /* ... */ } // x is an array, channel, map, slice, or string
 
     for i, e := range x { /* ... */ } // x is an array, map, slice, or string
