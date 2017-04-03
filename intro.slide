@@ -839,7 +839,8 @@ Namespaces:
 
     p.B(p.A())
 
-    var x = p.A() // compile error: var x p.t = p.A()
+    var x p.t = p.A() // compile error: p.t not exported
+    var x = p.A()
 
     p.B(x)
 
