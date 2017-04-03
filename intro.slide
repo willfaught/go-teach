@@ -493,10 +493,7 @@ Declare a new type in terms of an existing type:
     type newtypename existingtype
 
 - The new type's "underlying type" is the existing type.
-- New types are equivalent to their underlying types
-- New types and equivalent types can be type converted between each other
-
-Types don't have to be used.
+- New types are convertible to their underlying types transitively and vice versa
 
 Singles:
 
@@ -508,6 +505,8 @@ Blocks:
     type (a z)
 
     type (a z; b z)
+
+Types don't have to be used.
 
 * Type declarations, continued
 
