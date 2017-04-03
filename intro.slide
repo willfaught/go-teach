@@ -57,6 +57,8 @@ Some comments are special annotations:
 
     // Foo returns the...
 
+* Expressions
+
 * Literals
 
 Untyped:
@@ -94,8 +96,6 @@ Default types:
     var _ = nil  // compiler error, must be typed
     var _ = 'r'  // rune
     var _ = "s"  // string
-
-* Expressions
 
 * Built-in named types
 
