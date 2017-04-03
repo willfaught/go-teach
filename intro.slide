@@ -780,6 +780,26 @@ Use interface types to abstract method implementations:
     C(T1{})
     C(T2{})
 
+* Interfaces, continued
+
+Interfaces are implemented as:
+
+- Pointer to the value
+- Pointer to the type
+
+Interface types box values:
+
+    var p position        // p allocated on the stack
+    var v interface{} = p // p moved to the heap, v refers to p on the heap
+
+Interface values are nil only if their internal value and type pointers are nil:
+
+    var i interface{} // i == nil
+    var p *int        // p == (*int)(nil)
+
+    i = 7 // i != nil
+    i = p // i != nil
+
 * Name binding
 
 Nested scopes:
