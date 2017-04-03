@@ -412,8 +412,8 @@ Parameter and result names do not affect function type equivalence.
     e = m[i]
     e, ok = m[i]
 
-    v = x.(T)
-    v, ok = x.(T)
+    v = i.(T)
+    v, ok = i.(T)
 
 * Deferred function invocations
 
