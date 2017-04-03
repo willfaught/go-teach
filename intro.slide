@@ -144,9 +144,9 @@ Literals:
 
 Operations:
 
-    % | & | `|` | ^ | &^ | << | >>
+    % | & | | | ^ | &^ | << | >>
 
-    %= | &= | `|=` | ^= | &^= | <<= | >>=
+    %= | &= | |= | ^= | &^= | <<= | >>=
 
     new(int) | new(uint) | new(uintptr) | new(byte) | new(rune)
 
