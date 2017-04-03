@@ -220,7 +220,7 @@ Operations:
 
     s[i] | s[i1:i2] | s[i:] | s[:i] | s[:]
 
-    string(x) | len(s) | new(string) | string([]byte(b))
+    string(x) | len(s) | new(string) | string([]byte(x)) | []byte(s)
 
 * Built-in unnamed types
 
