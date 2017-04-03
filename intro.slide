@@ -780,7 +780,7 @@ Use interface types to abstract method implementations:
     C(T1{})
     C(T2{})
 
-* Scopes
+* Name binding
 
 Nested scopes:
 
