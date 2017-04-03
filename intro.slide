@@ -228,7 +228,7 @@ Operations:
 
     == | !=
 
-    a[i] = e | a[i] | a[l:h] | a[l:] | a[:h] | a[:] | a[l:h:m] | a[:h:m]
+    a[i] = e | a[i] | &a[i] | a[l:h] | a[l:] | a[:h] | a[:] | a[l:h:m] | a[:h:m]
 
     cap(a) | len(a) | new(A)
 
@@ -246,7 +246,7 @@ Operations:
 
     == nil | != nil
 
-    s[i] = e | s[i] | s[l:h] | s[l:] | s[:h] | s[:] | s[l:h:m] | s[:h:m]
+    s[i] = e | s[i] | &s[i] | s[l:h] | s[l:] | s[:h] | s[:] | s[l:h:m] | s[:h:m]
 
     append(s, e) | append(s, e1, e2) | append(s1, s2...) | copy(dst, src)
 
