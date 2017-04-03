@@ -401,6 +401,116 @@ Parameter and result names do not affect function type equivalence.
 
 * Statements
 
+* Constant declarations
+
+Singles:
+
+    const a T = z
+    const b, c T = z, z
+
+    const a = z
+    const b, c = z, z
+
+Blocks:
+
+    const (a T = z)
+    const (b = z)
+
+    const (a, b T = z, z)
+    const (c, d = z, z)
+
+    const (a, b T = z, z; c, d T = z, z)
+    const (e, f = z, z; g, h = z, z)
+
+* Variable declarations
+
+Singles:
+
+    var a T
+    var b T = z
+
+    var a, b T
+    var c, d T = z, z
+
+    var a = z
+    var b, c = z, z
+
+    var a = oneresult()
+    var b, c = tworesults()
+
+* Variable declarations, continued
+
+Blocks:
+
+    var (a T)
+    var (b T = z)
+    var (c = z)
+
+    var (a, b T)
+    var (c, d T = z, z)
+    var (e, f = z, z)
+
+    var (a, b T; c, d T)
+    var (e, f T = z, z; g, h T = z, z)
+    var (i, j = z, z; k, l = z, z)
+
+* Variable declarations, continued
+
+Short assignments:
+
+    var a, err = z()    // "var a T1" and "var err T2" declarations implied
+    b, err := y()       // "var b T3" declaration implied
+    c, d, err := x()    // "var c T4" and "var d T5" declarations implied
+    e, c, d, err := w() // "var e T5" declaration implied
+
+    a, err := z()       // do not do this; use "var a, err = z()" instead
+    b, err := z()
+
+* Type declarations
+
+Declare a new type in terms of an existing type:
+
+    type newtypename existingtype
+
+- The new type's "underlying type" is the existing type.
+- New types are equivalent to their underlying types
+- New types and equivalent types can be type converted between each other
+
+Singles:
+
+    type a z
+    type b z
+
+Blocks:
+
+    type (a z)
+
+    type (a z; b z)
+
+* Type declarations, continued
+
+New types have the literals and operations of equivalent types:
+
+    type A [1]int
+
+    A{7}[0] // == 7
+
+    type F func()
+
+    F(func(){})() // compile error: F{}
+
+    type I int
+
+    I(7) + I(8) // == I(15)
+
+    type M map[int]int
+
+    M{7: 8}[7] // == 8
+
+    type S string
+
+    S("a") + S("b") // == S("ab")
+
 * Assignments
 
     a = a
@@ -541,71 +651,6 @@ Blocks:
 
     import ("a"; "b")
 
-* Constant declarations
-
-Singles:
-
-    const a T = z
-    const b, c T = z, z
-
-    const a = z
-    const b, c = z, z
-
-Blocks:
-
-    const (a T = z)
-    const (b = z)
-
-    const (a, b T = z, z)
-    const (c, d = z, z)
-
-    const (a, b T = z, z; c, d T = z, z)
-    const (e, f = z, z; g, h = z, z)
-
-* Variable declarations
-
-Singles:
-
-    var a T
-    var b T = z
-
-    var a, b T
-    var c, d T = z, z
-
-    var a = z
-    var b, c = z, z
-
-    var a = oneresult()
-    var b, c = tworesults()
-
-* Variable declarations, continued
-
-Blocks:
-
-    var (a T)
-    var (b T = z)
-    var (c = z)
-
-    var (a, b T)
-    var (c, d T = z, z)
-    var (e, f = z, z)
-
-    var (a, b T; c, d T)
-    var (e, f T = z, z; g, h T = z, z)
-    var (i, j = z, z; k, l = z, z)
-
-* Variable declarations, continued
-
-Short assignments:
-
-    var a, err = z()    // "var a T1" and "var err T2" declarations implied
-    b, err := y()       // "var b T3" declaration implied
-    c, d, err := x()    // "var c T4" and "var d T5" declarations implied
-    e, c, d, err := w() // "var e T5" declaration implied
-
-    a, err := z()       // do not do this; use "var a, err = z()" instead
-    b, err := z()
-
 * Function declarations
 
 Form:
@@ -625,51 +670,6 @@ Named parameter and result variables are declared implicitly:
     }
 
 Only declared in package scope.
-
-* Type declarations
-
-Declare a new type in terms of an existing type:
-
-    type newtypename existingtype
-
-- The new type's "underlying type" is the existing type.
-- New types are equivalent to their underlying types
-- New types and equivalent types can be type converted between each other
-
-Singles:
-
-    type a z
-    type b z
-
-Blocks:
-
-    type (a z)
-
-    type (a z; b z)
-
-* Type declarations, continued
-
-New types have the literals and operations of equivalent types:
-
-    type A [1]int
-
-    A{7}[0] // == 7
-
-    type F func()
-
-    F(func(){})() // compile error: F{}
-
-    type I int
-
-    I(7) + I(8) // == I(15)
-
-    type M map[int]int
-
-    M{7: 8}[7] // == 8
-
-    type S string
-
-    S("a") + S("b") // == S("ab")
 
 * Methods
 
