@@ -671,7 +671,7 @@ Blocks:
 
     import ("a"; "b")
 
-Only in package scope.
+Only in file scope.
 
 * Function declarations
 
