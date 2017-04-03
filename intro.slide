@@ -340,7 +340,7 @@ Types:
 
 Literals:
 
-    S{} | S{e} | S{e1, e2} | S{f: e} | S{f1: e2, f2: e2}
+    S{} | S{e} | S{f: e}
 
 * Structs, continued
 
