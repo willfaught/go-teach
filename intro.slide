@@ -879,7 +879,11 @@ Method export trick:
 
 * Packages
 
-GOPATH defaults to ~/go
+Directories with .go files are Go packages.
+
+Directories with sub-packages and no .go files are not Go packages.
+
+GOPATH defaults to ~/go.
 
 GOPATH tree for main package x and library package x/internal/y:
 
