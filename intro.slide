@@ -78,18 +78,20 @@ Untyped:
 
 Simple operations are evaluated by the compiler:
 
-    1 + 2 | 3 / 2 | 1 << 2 | 1 < 2 | "a" + "b"
+    1 + 2 | 3 / 4 | 5 << 6 | 7 < 8 | "a" + "b"
 
 Literals implicitly type convert:
 
-    var _  complex64 = 123i
-    var _ complex128 = 123i
-    var _    float32 = 1.2e3
-    var _    float64 = 1.2e3
-    var _       int8 = 123
-    var _      int16 = 123
-    var _      int32 = 'r'
-    var _      int64 = 'r'
+    var _      bool = false
+    var _      bool = true
+    var _ complex64 = 123i
+    var _   float32 = 1.2e3
+    var _      int8 = 123
+    var _     int16 = 'r'
+    var _      rune = 'r'
+    var _   *string = nil
+    var _     []int = nil
+    var _  chan int = nil
 
 * Literals, continued
 
@@ -104,7 +106,7 @@ Default types:
     var _ = 7.7i // complex128
     var _ = 7.7  // float64
     var _ = 7    // int
-    var _ = nil  // compiler error, must be typed
+    var _ = nil  // compile error: nil must be typed
     var _ = 'r'  // rune
     var _ = "s"  // string
 
