@@ -332,6 +332,8 @@ Operations:
 
     P(x) | &x | *x
 
+Value x must be addressable for &x.
+
 * Structs
 
 Types:
