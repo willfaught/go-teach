@@ -654,6 +654,10 @@ Can change named function results:
 - Labels are scoped to the entire function block
 - Label scope extends before label declarations and inside nested blocks
 
+* Blocks
+
+    {} | { /* ... */ }
+
 * Import declarations
 
 Singles:
