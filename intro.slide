@@ -417,6 +417,12 @@ Parameter and result names do not affect function type equivalence.
 
 * Statements
 
+* Blocks
+
+    {} | { /* ... */ }
+
+New, nested scope within the brackets.
+
 * Constant declarations
 
 Singles:
@@ -483,6 +489,16 @@ Short assignments:
 
     a, err := z()       // do not do this; use "var a, err = z()" instead
     b, err := z()
+
+Shadowing gotcha:
+
+    a, b := z()
+
+    if b {
+        a, err := y() // new "a" variable
+    }
+
+    // old "a" variable unchanged
 
 Local variables have to be used.
 
@@ -662,10 +678,6 @@ Copy index variable values to keep them past the iteration.
 - Labels are only used in function blocks
 - Labels are scoped to the entire function block
 - Label scope extends before label declarations and inside nested blocks
-
-* Blocks
-
-    {} | { /* ... */ }
 
 * Import declarations
 
