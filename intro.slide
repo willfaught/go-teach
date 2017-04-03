@@ -472,9 +472,7 @@ Can change named function results:
 
 * Switches
 
-    switch x {}
-
-    switch simplestatement; x {}
+    switch {} | switch x {} | switch x.(type) | switch simplestatement; x {}
 
     switch x1 {
     case x2:
