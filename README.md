@@ -1,10 +1,8 @@
-# gointro
+# go-teach
 
-Go introduction slides.
+Slides for teaching Go.
 
-## Display
+To run:
 
-Use golang.org/x/tools/cmd/present:
-
-- `go get -u golang.org/x/tools/cmd/present`
-- `$(go env GOPATH)/bin/present`
+- `go install golang.org/x/tools/cmd/present@latest`
+- `go run golang.org/x/tools/cmd/present`
